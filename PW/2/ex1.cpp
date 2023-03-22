@@ -27,6 +27,7 @@ int main( int argc, char** argv )
   auto begin = chrono::high_resolution_clock::now();
   const int iter = 100000;
   
+  #pragma omp parallel for
   for (int i=0;i<iter;i++)
     {
       startCUDA ( d_img,d_result );
