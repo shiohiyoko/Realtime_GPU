@@ -16,14 +16,13 @@ int main( int argc, char** argv )
   auto begin = chrono::high_resolution_clock::now();
   const int iter = 1000;
 
-  for (int it=0;it<iter;it++)
-    {
-	 #pragma omp parallel for
+  for (int it=0;it<iter;it++){
+    #pragma omp parallel for
       for (int i=0;i<source.rows;i++)
-//#pragma omp parallel for
-	for (int j=0;j<source.cols;j++)
-	  destination(i,j) = 255.0*cos((255-source(i,j))/255.0);
-    }
+    // #pragma omp parallel for
+    for (int j=0;j<source.cols;j++)
+      destination(i,j) = 255.0*cos((255-source(i,j))/255.0);
+  }
 
   auto end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> diff = end-begin;
