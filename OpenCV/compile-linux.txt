@@ -1,0 +1,2 @@
+g++ opencv-basic.cpp `pkg-config opencv4 --cflags` -c
+g++ opencv-basic.o `pkg-config opencv4 --libs` -lstdc++ -o opencv-basic

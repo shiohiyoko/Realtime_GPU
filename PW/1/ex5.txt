@@ -1,0 +1,6 @@
+How to correctly process the pixels on the edges of the images?
+
+There are multiple ways to process the pixels on the edges of the images. 
+One of the ways is to linearly transform the image to the corresponding axis before the filtering process. 
+This method has the advantage of using the pixel near the edge of the image, which can perform better in 
+filtering the pixels on the edges compared to filling it with 0 or the referenced pixel.
