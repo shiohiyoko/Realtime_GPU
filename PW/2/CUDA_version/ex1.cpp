@@ -15,10 +15,22 @@ int main( int argc, char** argv )
   cv::Mat h_img = cv::imread(argv[1]);
   cv::Mat h_result;
 
+  // 分割する画像の(x, y, width, height)をRectに入力
+  cv::Rect crop_region = cv::Rect(0, 0, h_img.col/2, h_img.rows/2);
+  
+  // 分割画像を取得
+  cv::Mat l_img = input_image(crop_region);
+
+  // 分割する画像の(x, y, width, height)をRectに入力
+  crop_region = cv::Rect(h_img.col/2, h_img.rows/2, h_img.col, h_img.rows);
+  
+  // 分割画像を取得
+  cv::Mat r_img = input_image(crop_region);
+
   cv::cuda::GpuMat d_img, d_result;
 
   d_img.upload(h_img);
-  d_result.upload(h_img);
+  d_result.upload(crop_region);
   int width= d_img.cols;
   int height = d_img.rows;
 
@@ -28,9 +40,10 @@ int main( int argc, char** argv )
   const int iter = 100000;
   
   for (int i=0;i<iter;i++)
-    {
-      startCUDA ( d_img,d_result );
-    }
+  {
+    // startCUDA ( d_img,d_result );
+    startCUDA ( l_img, r_img, d_result );
+  }
   auto end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> diff = end-begin;
 
