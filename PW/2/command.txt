@@ -1,0 +1,16 @@
+ g++ ex1.cpp -fopenmp `pkg-config opencv4 --cflags` -c
+/usr/local/cuda/bin/nvcc image.cu g++ ex1.o  -fopenmp `pkg-config opencv4 --libs` -lstdc++ -o ex1
+
+cuda
+/usr/local/cuda/bin/nvcc image.cu `pkg-config opencv4 --cflags --libs` imagecpp-linux.cpp -o imagecuda
+
+openmp
+g++ opencv-omp-basic.cpp -fopenmp `pkg-config opencv4 --cflags` -c
+g++ opencv-omp-basic.o  -fopenmp `pkg-config opencv4 --libs` -lstdc++ -o opencv-omp-basic
+
+
+/usr/local/cuda/bin/nvcc image.cu -Xcompiler=-fopenmp `pkg-config opencv4 --cflags --libs` ex1.cpp -o ex1
+
+
+/usr/local/cuda/bin/nvcc image.cu opencv-omp-basic.cpp -fopenmp `pkg-config opencv4 --cflags` -c
+/usr/local/cuda/bin/nvcc image.cu opencv-omp-basic.o   `pkg-config opencv4 --libs` -lstdc++ -o opencv-omp-basic
