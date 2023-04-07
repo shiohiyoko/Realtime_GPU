@@ -1,0 +1,9 @@
+
+quirectangular -> cubemap
+/usr/local/cuda/bin/nvcc equirectangular2cubemap.cu `pkg-config opencv4 --cflags --libs` cubemap.cpp -o cubemap
+
+cubemap -> equirectangular
+/usr/local/cuda/bin/nvcc cubemap2equirectangular.cu `pkg-config opencv4 --cflags --libs` cube2rec.cpp -o cube2rec
+
+
+/usr/local/cuda/bin/nvcc equirectangular2cubemap.cu cubemap2equirectangular.cu denoise.cu `pkg-config opencv4 --cflags --libs` main.cpp -o main
